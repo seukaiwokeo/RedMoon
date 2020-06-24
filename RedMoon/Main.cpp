@@ -4,7 +4,7 @@ static const string BASE_URL = "https://instagram.com/";
 static string TARGET = "";
 static string WORDLIST = "wordlist.txt";
 static string PROXYLIST = "proxy.txt";
-static BYTE THREADCOUNT = 12;
+static BYTE THREADCOUNT = 4;
 static size_t cLine = 0;
 static size_t pLine = 0;
 
