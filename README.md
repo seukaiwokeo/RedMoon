@@ -7,7 +7,7 @@ The Project is based on **Visual Studio 2019 (v142)**
 ### **Prerequisites**
 - libcurl
 
-##Usage
+# **Usage**
 
 		-u      --username
 		-w      --wordlist [wordlist.txt for default]
@@ -21,5 +21,6 @@ Proxy list example (must be http)
 		117.95.13.120:9999
 		183.166.133.134:9999
 
-#Note
+# **Note**
+
 Recently Instagram has upgrade their login system. They use enc_password for password field. It has an encryption method so I release this old project for idea.
