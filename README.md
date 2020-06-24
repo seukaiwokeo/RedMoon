@@ -8,6 +8,7 @@ The Project is based on **Visual Studio 2019 (v142)**
 - libcurl
 
 ##Usage
+
 		-u      --username
 		-w      --wordlist [wordlist.txt for default]
 		-p      --proxylist [proxy.txt for default]
