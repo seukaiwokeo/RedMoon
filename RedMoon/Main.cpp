@@ -64,7 +64,7 @@ string getCsrftoken(string proxy)
 	if (curl) {
 		curl_easy_setopt(curl, CURLOPT_URL, BASE_URL.c_str());
 		if(!proxy.empty())
-			curl_easy_setopt(curl, CURLOPT_PROXY, string("http://" + proxy).c_str());
+			curl_easy_setopt(curl, CURLOPT_PROXY, proxy.c_str());
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
 		curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
 		curl_easy_setopt(curl, CURLOPT_HEADER, true);
@@ -134,7 +134,7 @@ bool loginRequest(string username, string password, string proxy = "")
 		curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
 		curl_easy_setopt(curl, CURLOPT_URL, LOGIN_URL.c_str());
 		if (!proxy.empty())
-			curl_easy_setopt(curl, CURLOPT_PROXY, proxy);
+			curl_easy_setopt(curl, CURLOPT_PROXY, proxy.c_str());
 		curl_easy_setopt(curl, CURLOPT_COOKIE, cookie.c_str());
 		curl_easy_setopt(curl, CURLOPT_POST, true);
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
