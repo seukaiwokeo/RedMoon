@@ -15,7 +15,7 @@ The Project is based on **Visual Studio 2019 (v142)**
 		-t      --threadcount [4 for default]
 
 Wordlist must be line by line.  
-Proxy list example (must be http)
+Proxy list example
 
 		180.248.15.161:8080
 		117.95.13.120:9999
